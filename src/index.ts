@@ -11,5 +11,5 @@ app.get("/api/ping", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log(`LOLZA-Core running on port ${PORT}`);
 });

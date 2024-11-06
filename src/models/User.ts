@@ -1,28 +1,35 @@
-// src/models/User.ts
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+// models/User.ts
+import { UUID } from 'crypto';
+import { Table, Column, Model, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 
-@Table({ tableName: 'users' })  // Specify table name if it differs
-export class User extends Model<User> {
-    
-    // Use declare to avoid overwriting the base 'id' property
-    @PrimaryKey
-    @AutoIncrement
+@Table({
+    timestamps: true,
+    tableName: 'Users',
+})
+export class User extends Model {
     @Column({
-        type: DataType.INTEGER,
-        allowNull: false,
+        primaryKey: true,
+        type: DataType.INTEGER, 
+        autoIncrement: true,    
     })
-    declare id: number;  
+    declare id: number; 
 
     @Column({
         type: DataType.STRING,
         allowNull: false,
     })
-    username!: string;
+    declare username: string;
 
     @Column({
         type: DataType.STRING,
         allowNull: false,
         unique: true,
     })
-    email!: string;
+    declare email: string;
+
+    @CreatedAt
+    declare createdAt: Date;
+
+    @UpdatedAt
+    declare updatedAt: Date;
 }

@@ -1,35 +1,36 @@
-// index.ts
-import express from 'express';
-import sequelize from './postgreSQL';
-import { User } from './models/User';
 import dotenv from 'dotenv';
-
 dotenv.config();
 
+import express from 'express';
+import sequelize from './postgres';
+import userRoutes from './routes/userRoutes';
+import cors from 'cors';
+
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to parse JSON
 app.use(express.json());
 
-// Example route to create a new user
-app.post('/api/users', async (req, res) => {
-    try {
-        const user = await User.create(req.body);  // Will insert into the existing table
-        res.status(201).json(user);
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
-        } else {
-            res.status(500).json({ error: 'An unknown error occurred' });
-        }
-    }
+// Routes
+app.use('/api', userRoutes);
+
+// Cors
+app.use(cors())
+
+// Health check route
+app.get('/', (req, res) => {
+    res.send('API is working');
 });
 
-const PORT = process.env.PORT || 8080;
-
-// Just connect and start the server without syncing
-sequelize.authenticate().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+// Connect to the database and start the server
+sequelize.sync()
+    .then(() => {
+        console.log('Database connected');
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((error:Error) => {
+        console.error('Unable to connect to the database:', error);
     });
-}).catch((error: unknown) => {
-    console.error('Unable to connect to the database:', error);
-});

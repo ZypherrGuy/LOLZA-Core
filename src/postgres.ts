@@ -2,7 +2,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from './models/User';
 
-const sequelize = new Sequelize(process.env.DaTABASE_URL as string,{
+const sequelize = new Sequelize(process.env.DATABASE_URL as string,{
     dialect: 'postgres',
     dialectOptions: {
         ssl: {

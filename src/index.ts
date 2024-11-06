@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // CORS setup: Allow requests only from specific origins
 const allowedOrigins = [
-  'http://localhost:5173', // Local development (you may need to change this based on your local port)
+  'http://localhost:8080', // Local development (you may need to change this based on your local port)
   'https://lolza-discord-dashboard.vercel.app' // Production frontend URL on Vercel
 ];
 

@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
 import { createUser, getAllUsers } from '../services/userServices';
 
-export interface UserDetails {
-    username: string;
-    email: string;
-}
-
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
       const users = await getAllUsers();
@@ -27,7 +22,7 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       const user = await createUser({ username, email });
       res.status(201).json(user);
   } catch (error) {
-      console.error('Error in addUser:', error);  // Log error details
+      console.error('Error in addUser:', error); 
       res.status(500).json({ error: 'Internal server error' });
   }
 };

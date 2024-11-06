@@ -23,7 +23,6 @@ app.get('/', (req, res) => {
     res.send('API is working');
 });
 
-// Connect to the database and start the server
 sequelize.sync()
     .then(() => {
         console.log('Database connected');

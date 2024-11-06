@@ -1,4 +1,3 @@
-// models/User.ts
 import { UUID } from 'crypto';
 import { Table, Column, Model, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 

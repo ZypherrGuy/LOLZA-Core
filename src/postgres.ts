@@ -10,8 +10,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL as string,{
             rejectUnauthorized: false,
         },
     },
-    models: [User],  // Register your models here
-    logging: false,  // Set to true if you want Sequelize to log SQL queries
+    models: [User],  
+    logging: false, 
 });
 
 sequelize.authenticate()

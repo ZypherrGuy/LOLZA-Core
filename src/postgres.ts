@@ -1,6 +1,7 @@
 // postgreSQL.ts
 import { Sequelize } from 'sequelize-typescript';
 import { User } from './models/User';
+import { Tournament } from './models/Tournament';
 
 const sequelize = new Sequelize(process.env.DATABASE_URL as string,{
     dialect: 'postgres',
@@ -10,7 +11,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL as string,{
             rejectUnauthorized: false,
         },
     },
-    models: [User],  
+    models: [User, Tournament],  
     logging: false, 
 });
 

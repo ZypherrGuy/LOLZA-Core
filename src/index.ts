@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import sequelize from './postgres';
 import userRoutes from './routes/userRoutes';
+import tournamentRoutes from './routes/tournametRoutes';
 import cors from 'cors';
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api', userRoutes);
+app.use('/api', tournamentRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

@@ -11,11 +11,12 @@ export const getTournaments = async (req: Request, res: Response): Promise<void>
 };
 
 export const addTournament = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { title, description } = req.body; 
-    const tournament = await createTournament({ title, description });
-    res.status(201).json(tournament);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error - Failed to create a new tournament.' });
-  }
+    try {
+      const tournament = await createTournament(req.body);
+  
+      res.status(201).json(tournament);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: (error as Error).message });
+    }
 };

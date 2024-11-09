@@ -11,18 +11,12 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const addUser = async (req: Request, res: Response): Promise<void> => {
-  try {
-      const { username, email } = req.body;
-
-      if (!username || !email) {
-          res.status(400).json({ error: 'Username and email are required.' });
-          return;
-      }
-
-      const user = await createUser({ username, email });
-      res.status(201).json(user);
-  } catch (error) {
-      console.error('Error in addUser:', error); 
-      res.status(500).json({ error: 'Internal server error' });
-  }
+    try {
+      const tournament = await createUser(req.body);
+  
+      res.status(201).json(tournament);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: (error as Error).message });
+    }
 };

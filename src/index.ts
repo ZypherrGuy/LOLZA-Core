@@ -3,8 +3,13 @@ dotenv.config();
 
 import express from 'express';
 import sequelize from './postgres';
+
 import userRoutes from './routes/userRoutes';
 import tournamentRoutes from './routes/tournametRoutes';
+import gameRoutes from './routes/gameRoutes';
+import playerRoutes from './routes/playerRoutes';
+import teamRoutes from './routes/teamRoutes';
+
 import cors from 'cors';
 
 const app = express();
@@ -36,6 +41,9 @@ app.use(express.json());
 // Routes
 app.use('/api', userRoutes);
 app.use('/api', tournamentRoutes);
+app.use('/api', gameRoutes);
+app.use('/api', playerRoutes);
+app.use('/api', teamRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

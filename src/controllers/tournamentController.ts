@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { createTournament, getAllTournaments } from '../services/tournamentServices';
-import { CheckIfNull } from '../utils/nullHandler';
 
 export const getTournaments = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -14,10 +13,9 @@ export const getTournaments = async (req: Request, res: Response): Promise<void>
 export const addTournament = async (req: Request, res: Response): Promise<void> => {
   try {
     const { title, description } = req.body; 
-    CheckIfNull(title, res);
     const tournament = await createTournament({ title, description });
     res.status(201).json(tournament);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error - Failed to create a new tournament.' });
   }
 };

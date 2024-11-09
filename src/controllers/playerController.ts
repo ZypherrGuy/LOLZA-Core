@@ -13,24 +13,9 @@ export const getPlayers = async (req: Request, res: Response): Promise<void> => 
 
 export const addPlayer = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (!req.body.IGN) {
-      res.status(400).json({ error: 'IGN is required and cannot be empty' });
-    }
+    const player = await createPlayer(req.body);
 
-    const playerData = new Player({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      IGN: req.body.IGN,
-      email: req.body.email,
-      teamID: req.body.teamID,
-      teamHistory: req.body.teamHistory,
-      games: req.body.games,
-      nationality: req.body.nationality,
-      contactNumber: req.body.contactNumber,
-    });
-
-    await playerData.save();
-    res.status(201).json(playerData);
+    res.status(201).json(player);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: (error as Error).message });

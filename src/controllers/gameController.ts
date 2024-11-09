@@ -12,10 +12,11 @@ export const getGames = async (req: Request, res: Response): Promise<void> => {
 
 export const addGame = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name } = req.body; 
-    const game = await createGame({ name });
+    const game = await createGame(req.body);
+
     res.status(201).json(game);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error - Failed to create a new game title.' });
+    console.error(error);
+    res.status(500).json({ error: (error as Error).message });
   }
 };

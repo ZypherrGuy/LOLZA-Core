@@ -14,9 +14,9 @@ export const getTeams = async (req: Request, res: Response): Promise<void> => {
 
 export const addTeam = async (req: Request, res: Response): Promise<void> => {
   try {
-    const teamData = await createTeam(req.body);
+    const team = await createTeam(req.body);
 
-    res.status(201).json(teamData);
+    res.status(201).json(team);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: (error as Error).message });

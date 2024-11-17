@@ -1,6 +1,5 @@
 import { Table, Column, Model, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 
-
 @Table({
     timestamps: true,
     tableName: 'Tournaments',

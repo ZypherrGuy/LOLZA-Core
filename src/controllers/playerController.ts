@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { createPlayer, getAllPlayers } from '../services/playerServices';
-import { Player } from '../models/Player';
 
 export const getPlayers = async (req: Request, res: Response): Promise<void> => {
   try {

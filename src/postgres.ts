@@ -1,4 +1,3 @@
-// postgreSQL.ts
 import { Sequelize } from 'sequelize-typescript';
 import { User } from './models/User';
 import { Tournament } from './models/Tournament';

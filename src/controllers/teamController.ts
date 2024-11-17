@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import { createTeam, getAllTeams } from '../services/teamServices';
-import { Team } from '../models/Team';
-import { log } from 'console';
 
 export const getTeams = async (req: Request, res: Response): Promise<void> => {
   try {

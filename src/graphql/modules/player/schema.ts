@@ -1,14 +1,14 @@
-// src/graphql/schema.ts
 import { gql } from 'apollo-server-express';
 
-export const userTypeDefs = gql`
-  type User {
+export const playerTypeDefs = gql`
+  type Player {
     id: ID!
     name: String!
     email: String!
   }
 
   type Query {
-    Users: [User!]!
+    Players: [Player!]!
+    Player(id: ID!): Player
   }
 `;

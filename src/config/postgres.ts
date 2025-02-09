@@ -1,11 +1,9 @@
-// src/postgres.ts
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Choose which connection details to use
-const usePublic = true; // or determine this based on NODE_ENV or another flag
+const usePublic = true; 
 
 const host = usePublic ? process.env.PUBLIC_DB_HOST : process.env.DB_HOST;
 const port = usePublic ? process.env.PUBLIC_DB_PORT : process.env.DB_PORT;
@@ -27,7 +25,6 @@ async function testConnection() {
 
 testConnection();
 
-// Optional: Handle any errors that occur when the pool is idle
 pool.on('error', (err) => {
   console.error('Unexpected error on idle PostgreSQL client', err);
   process.exit(-1);

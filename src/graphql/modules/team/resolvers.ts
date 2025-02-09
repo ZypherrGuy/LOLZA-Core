@@ -1,6 +1,6 @@
 import { logger } from '../../../utils/logger';
 
-logger.info('TeamResolver Logger Service.');
+logger.info('TeamResolver');
 
 export const teamResolvers = {
   Query: {
@@ -20,20 +20,6 @@ export const teamResolvers = {
       } catch (error) {
         console.error('Error fetching team:', error);
         throw new Error('Failed to fetch team');
-      }
-    },
-  },
-  Mutation: {
-    createTeam: async (_: any, args: { name: string; description?: string }, context: { db: any }) => {
-      try {
-        const result = await context.db.query(
-          'INSERT INTO "Teams"(name, description) VALUES($1, $2) RETURNING *',
-          [args.name, args.description]
-        );
-        return result.rows[0];
-      } catch (error) {
-        console.error('Error creating team:', error);
-        throw new Error('Failed to create team');
       }
     },
   },

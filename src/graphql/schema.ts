@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { userTypeDefs } from './modules/user/schema';
 import { teamTypeDefs } from './modules/team/schema';
+import { playerTypeDefs } from './modules/player/schema';
 
 const baseTypeDefs = gql`
   type Query {
@@ -12,4 +13,4 @@ const baseTypeDefs = gql`
   }
 `;
 
-export const typeDefs = mergeTypeDefs([baseTypeDefs, userTypeDefs, teamTypeDefs]);
+export const typeDefs = mergeTypeDefs([baseTypeDefs, userTypeDefs, teamTypeDefs, playerTypeDefs]);

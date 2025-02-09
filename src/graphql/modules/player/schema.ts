@@ -1,16 +1,18 @@
+// src/graphql/player/schema.ts
 import { gql } from 'apollo-server-express';
+import { enumTypeDefs } from '../../enums';
 
 export const playerTypeDefs = gql`
   scalar Date
   scalar JSON
 
-  # A type for contact details
+  ${enumTypeDefs}
+
   type ContactDetails {
     email: String!
     phoneNumber: String
   }
 
-  # A type for address details
   type Address {
     unit: String
     complex: String
@@ -22,7 +24,6 @@ export const playerTypeDefs = gql`
     country: String!
   }
 
-  # The updated Player type reflecting the front‑end interface
   type Player {
     id: ID!
     utid: String!
@@ -30,17 +31,17 @@ export const playerTypeDefs = gql`
     firstNames: String
     lastName: String
     nationality: String!
-    resedencyCountry: String!  # Note: This spelling follows your front‑end interface
+    resedencyCountry: String!
     contactDetails: ContactDetails!
     address: Address!
     IGN: String!
-    playerTitle: String!
-    role: String!
-    rank: String!
+    playerTitle: PlayerTitle!
+    role: PlayerRole!
+    rank: PlayerRank!
     teamId: String
     ownedTeamId: String
     strapiHeadshotImageId: Int
-    socialMedia: [JSON]
+    socialMedia: [SocialPlatform]
     linkedAccounts: [JSON]
     createdAt: Date!
     updatedAt: Date!

@@ -16,33 +16,39 @@ export const playerTypeDefs = gql`
   type Address {
     unit: String
     complex: String
-    streetNumber: String!
-    streetName: String!
-    city: String!
-    province: String!
-    zipCode: String!
-    country: String!
+    streetNumber: String
+    streetName: String
+    city: String
+    province: String
+    zipCode: String
+    country: String
   }
 
   type Player {
     id: ID!
     utid: String!
     username: String!
-    firstNames: String
-    lastName: String
-    nationality: String!
+    firstNames: String!
+    lastName: String! 
+    nationality: String
     resedencyCountry: String!
-    contactDetails: ContactDetails!
-    address: Address!
-    IGN: String!
-    playerTitle: PlayerTitle!
-    role: PlayerRole!
-    rank: PlayerRank!
+    contactDetails: ContactDetails
+    address: Address
+    ign: String!
+    teamTitle: String
+    role: String
+    rank: String
     teamId: String
     ownedTeamId: String
-    strapiHeadshotImageId: Int
-    socialMedia: [SocialPlatform]
-    linkedAccounts: [JSON]
+    strapiHeadshotImageId: String
+    discordUsername: String
+    discordUserId: String
+    twitter: String
+    instagram: String
+    twitch: String
+    youtube: String
+    riotId: String
+    steamProfile: String
     createdAt: Date!
     updatedAt: Date!
   }

@@ -1,4 +1,3 @@
-// src/index.ts
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -7,26 +6,21 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs } from './graphql/schema';
 import { resolvers } from './graphql/resolvers';
 import dotenv from 'dotenv';
-import pool from './config/postgres';
-import { Pool } from 'pg';
-import { getUserFromAuthHeader } from './middleware/auth';
+import { getUserFromAuthHeader } from './middleware/auth.middleware';
 import { logger } from './utils/logger';
+import pool from './config/postgres';
 
 dotenv.config();
 
-interface MyContext {
-  db: Pool;
+export interface MyContext {
+  db: typeof pool;
   token?: string;
-  user?: any; 
+  user?: any;
 }
 
 async function startServer() {
   const app = express();
-
-  const apolloServer = new ApolloServer<MyContext>({
-    typeDefs,
-    resolvers,
-  });
+  const apolloServer = new ApolloServer<MyContext>({ typeDefs, resolvers });
 
   await apolloServer.start();
 
@@ -41,11 +35,7 @@ async function startServer() {
         if (user) {
           logger.info('User authenticated: %o', user);
         }
-        return {
-          db: pool,
-          token,
-          user,
-        };
+        return { db: pool, token, user };
       },
     }) as any
   );
@@ -57,5 +47,5 @@ async function startServer() {
 }
 
 startServer().catch((err) => {
-  logger.error('Error starting server', err);
+  logger.error('Error starting server: %o', err);
 });

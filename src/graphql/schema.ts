@@ -3,7 +3,8 @@ import { mergeTypeDefs } from '@graphql-tools/merge';
 import { userTypeDefs } from './modules/user/user.schema';
 import { teamTypeDefs } from './modules/team/team.schema';
 import { playerTypeDefs } from './modules/player/player.schema';
-import { riotTypeDefs } from './external/riot/riot.schema';
+import { dataDragonTypeDefs } from '../graphql/external/datadragon/datadragon.schema';
+import { riotTypeDefs } from '../graphql/external/riot/riot.schema';
 
 const baseTypeDefs = gql`
   type Query {
@@ -19,5 +20,6 @@ export const typeDefs = mergeTypeDefs([
   userTypeDefs,
   teamTypeDefs,
   playerTypeDefs,
+  dataDragonTypeDefs,
   riotTypeDefs,
 ]);

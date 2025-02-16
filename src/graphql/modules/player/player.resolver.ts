@@ -1,3 +1,4 @@
+// player.resolver.ts
 import { PlayerService } from '../../../services/PlayerService';
 import { logger } from '../../../utils/logger';
 
@@ -24,7 +25,29 @@ export const playerResolvers = {
       }
     },
   },
-  // Field-level resolvers (if necessary) can remain here.
+  Mutation: {
+    registerPlayer: async (_: any, args: any) => {
+      try {
+        const newPlayer = await playerService.registerPlayer(args);
+        // Omit the password before returning to the client
+        delete newPlayer.password;
+        return newPlayer;
+      } catch (error) {
+        logger.error('Error registering player: %o', error);
+        throw new Error('Failed to register player');
+      }
+    },
+    loginPlayer: async (_: any, args: { email: string; password: string }) => {
+      try {
+        const { token, player } = await playerService.loginPlayer(args.email, args.password);
+        delete player.password;
+        return { token, player };
+      } catch (error) {
+        logger.error('Error logging in: %o', error);
+        throw new Error('Failed to login');
+      }
+    },
+  },
   Player: {
     contactDetails: (parent: any) => ({
       email: parent.email,

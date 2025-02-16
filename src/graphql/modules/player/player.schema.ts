@@ -1,4 +1,3 @@
-// src/graphql/player/schema.ts
 import { gql } from 'apollo-server-express';
 import { enumTypeDefs } from '../../enums';
 
@@ -29,7 +28,9 @@ export const playerTypeDefs = gql`
     utid: String!
     username: String!
     firstNames: String!
-    lastName: String! 
+    email: String!
+    lastName: String!
+    dateOfBirth: Date!
     nationality: String
     resedencyCountry: String!
     contactDetails: ContactDetails
@@ -51,6 +52,26 @@ export const playerTypeDefs = gql`
     steamProfile: String
     createdAt: Date!
     updatedAt: Date!
+  }
+
+  type LoginResponse {
+    token: String!
+    player: Player!
+  }
+
+  type Mutation {
+    registerPlayer(
+      username: String!
+      email: String!
+      ign: String!
+      firstNames: String!
+      lastName: String!
+      dateOfBirth: Date!
+      nationality: String
+      password: String!
+    ): Player!
+
+    loginPlayer(email: String!, password: String!): LoginResponse!
   }
 
   type Query {

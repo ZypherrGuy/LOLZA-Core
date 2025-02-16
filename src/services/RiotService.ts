@@ -2,6 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 import dotenv from 'dotenv';
 import { logger } from '../utils/logger';
+import { MatchDto } from '../graphql/external/riot/dto/RiotMatchDTO';
 
 dotenv.config(); // Load env variables
 
@@ -41,6 +42,19 @@ export class RiotService {
     } catch (error) {
       logger.error('Error fetching Riot account for %s#%s: %o', gameName, tagLine, error);
       throw new Error('Failed to fetch Riot account.');
+    }
+  }
+  
+  public async getMatchById(matchId: string): Promise<MatchDto> {
+    try {
+      const response = await this.axiosInstance.get<MatchDto>(
+        `/lol/match/v5/matches/${matchId}`,
+        { params: { api_key: this.apiKey } }
+      );
+      return response.data;
+    } catch (error) {
+      logger.error('Error fetching match data for matchId %s: %o', matchId, error);
+      throw new Error('Failed to fetch match data.');
     }
   }
 }

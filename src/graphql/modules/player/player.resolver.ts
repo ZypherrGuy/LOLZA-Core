@@ -1,8 +1,10 @@
 // player.resolver.ts
 import { PlayerService } from '../../../services/PlayerService';
+import { SessionRepository } from '../../../repositories/SessionRepository';
 import { logger } from '../../../utils/logger';
 
 const playerService = new PlayerService();
+const sessionRepo = new SessionRepository();
 
 export const playerResolvers = {
   Query: {
@@ -45,6 +47,19 @@ export const playerResolvers = {
       } catch (error) {
         logger.error('Error logging in: %o', error);
         throw new Error('Failed to login');
+      }
+    },
+    logoutPlayer: async (_: any, __: any, context: any) => {
+      const token = context.token;
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+      try {
+        const deletedSession = await sessionRepo.deleteSession(token);
+        return !!deletedSession;
+      } catch (error) {
+        logger.error('Error during logout: %o', error);
+        throw new Error('Logout failed');
       }
     },
   },

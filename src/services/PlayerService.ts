@@ -1,21 +1,25 @@
 // PlayerService.ts
 import { PlayerRepository, IPlayerRepository } from '../repositories/PlayerRepository';
+import { SessionRepository } from '../repositories/SessionRepository';
 import { RiotService, RiotAccountResponse } from './RiotService';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const saltRounds = 12;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'; // Use a strong secret in production!
-const JWT_EXPIRES_IN = '1h';
-
+const JWT_EXPIRES_IN = '1h'; // This value is used to sign the token.
 
 export class PlayerService {
   private riotService: RiotService;
+  private playerRepo: IPlayerRepository;
+  private sessionRepo: SessionRepository;
 
-  constructor(private playerRepo: IPlayerRepository = new PlayerRepository()) {
-    // Initialize the RiotService.
+  constructor(playerRepo: IPlayerRepository = new PlayerRepository()) {
+    this.playerRepo = playerRepo;
     this.riotService = new RiotService();
+    this.sessionRepo = new SessionRepository();
   }
+  
   async getPlayers(): Promise<any[]> {
     return await this.playerRepo.getAll();
   }
@@ -45,8 +49,15 @@ export class PlayerService {
     if (!valid) {
       throw new Error('Invalid credentials');
     }
-    // Create a JWT token (or generate a session in your sessions table)
+    // Generate JWT token
     const token = jwt.sign({ playerId: player.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    
+    // Calculate the expiration date (assuming JWT_EXPIRES_IN is '1h')
+    const expiresAt = new Date(Date.now() + 3600 * 1000);
+    
+    // Save the session in the database
+    await this.sessionRepo.createSession({ playerId: player.id, token, expiresAt });
+    
     return { token, player };
   }
 

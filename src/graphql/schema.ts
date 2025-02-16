@@ -8,6 +8,7 @@ import { riotTypeDefs } from '../graphql/external/riot/riot.schema';
 import { divisionTypeDefs } from './modules/division/division.schema';
 import { tournamentTypeDefs } from './modules/tournament/tournament.schema';
 import { seasonTypeDefs } from './modules/season/season.schema';
+import { sessionTypeDefs } from './modules/session/session.schema';
 
 const baseTypeDefs = gql`
   type Query {
@@ -27,5 +28,6 @@ export const typeDefs = mergeTypeDefs([
   riotTypeDefs,
   divisionTypeDefs,
   seasonTypeDefs,
-  tournamentTypeDefs
+  tournamentTypeDefs,
+  sessionTypeDefs
 ]);

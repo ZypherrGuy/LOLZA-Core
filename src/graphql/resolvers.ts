@@ -7,6 +7,7 @@ import { tournamentResolvers } from './modules/tournament/tournament.resolver';
 import { seasonResolvers } from './modules/season/season.resolver';
 import { riotResolvers } from './external/riot/riot.resolver';
 import { dataDragonResolvers } from './external/datadragon/datadragon.resolver';
+import { sessionResolvers } from './modules/session/session.resolver';
 
 export const resolvers = mergeResolvers([
   seasonResolvers,
@@ -16,5 +17,6 @@ export const resolvers = mergeResolvers([
   teamResolvers,
   playerResolvers,
   riotResolvers,
-  dataDragonResolvers
+  dataDragonResolvers,
+  sessionResolvers
 ]);

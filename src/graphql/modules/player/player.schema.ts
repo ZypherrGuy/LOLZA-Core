@@ -72,6 +72,8 @@ export const playerTypeDefs = gql`
     ): Player!
 
     loginPlayer(email: String!, password: String!): LoginResponse!
+
+    logoutPlayer: Boolean!
   }
 
   type Query {

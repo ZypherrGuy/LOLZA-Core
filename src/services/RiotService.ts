@@ -25,13 +25,10 @@ export class RiotService {
 
     this.axiosInstance = axios.create({
       baseURL: process.env.RIOT_BASE_URL || 'https://europe.api.riotgames.com',
-      timeout: 5000, // 5 seconds timeout
+      timeout: 5000, 
     });
   }
 
-  /**
-   * Fetch the Riot account by gameName and tagLine.
-   */
   public async getAccountByRiotId(gameName: string, tagLine: string): Promise<RiotAccountResponse> {
     try {
       const response = await this.axiosInstance.get<RiotAccountResponse>(
